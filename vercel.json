@@ -3,7 +3,12 @@
     "framework": null,
     "outputDirectory": "public",
     "functions": {
-        "api/index.php": { "runtime": "vercel-php@0.7.3" }
+        "api/index.php": {
+            "runtime": "vercel-php@0.7.3"
+        }
+    },
+    "env": {
+        "VERCEL_PHP_VERSION": "8.2"
     },
     "routes": [
         { "src": "/build/(.*)", "dest": "/public/build/$1" },
