@@ -8,7 +8,12 @@
         }
     },
     "env": {
-        "VERCEL_PHP_VERSION": "8.2"
+        "VERCEL_PHP_VERSION": "8.3"
+    },
+    "build": {
+        "env": {
+            "VERCEL_PHP_VERSION": "8.3"
+        }
     },
     "routes": [
         { "src": "/build/(.*)", "dest": "/public/build/$1" },
