@@ -1,16 +1,16 @@
-FROM php:8.2-fpm-alpine
+FROM php:8.4-fpm
 
-RUN apk add --no-cache nginx libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev zip unzip git postgresql-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_pgsql zip bcmath
+RUN apt-get update && apt-get install -y \
+    git curl libpng-dev libonig-dev libxml2-dev libpq-dev zip unzip nginx
+
+RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
-
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
@@ -18,4 +18,5 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php artisan migrate --force && nginx -g 'daemon off;'"]
+CMD service nginx start && php-fpm
+
