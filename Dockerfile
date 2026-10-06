@@ -1,9 +1,8 @@
-FROM php:8.4-fpm
+FROM php:8.4-fpm-alpine
 
-RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev libpq-dev zip unzip nginx
-
-RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
+RUN apk add --no-cache nginx libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev zip unzip git postgresql-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_pgsql zip bcmath
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -18,5 +17,5 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD service nginx start && php-fpm
+CMD ["sh", "-c", "php artisan migrate --force && nginx -g \"daemon off;\""]
 
