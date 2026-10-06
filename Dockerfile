@@ -17,5 +17,5 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php artisan migrate --force && nginx -g \"daemon off;\""]
+CMD ["sh", "-c", "nginx -g \"daemon off;\" & php-fpm"]
 
