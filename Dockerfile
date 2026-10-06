@@ -11,11 +11,12 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD ["sh", "-c", "nginx -g \"daemon off;\" & php-fpm"]
+CMD ["sh", "-c", "php artisan config:clear && php artisan storage:link && nginx -g \"daemon off;\" & php-fpm"]
 
