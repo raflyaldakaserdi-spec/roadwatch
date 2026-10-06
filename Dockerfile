@@ -1,6 +1,6 @@
 FROM php:8.4-fpm-alpine
 
-RUN apk add --no-cache nginx libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev zip unzip git postgresql-dev \
+RUN apk add --no-cache nginx libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev zip unzip git postgresql-dev nodejs npm \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_pgsql zip bcmath
 
@@ -10,6 +10,8 @@ WORKDIR /var/www
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+RUN npm install && npm run build
 
 RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache \
     && chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
