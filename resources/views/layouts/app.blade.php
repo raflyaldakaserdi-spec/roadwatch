@@ -34,12 +34,12 @@
 </head>
 <body class="antialiased text-slate-800 bg-[#FAF8FF] relative min-h-screen" x-data="{ sidebarOpen: false }">
 
-    <!-- 1. LAYER GAMBAR BACKGROUND LOKAL (PAS 100% SCREEN TANPA CELAH/POTONGAN) -->
+    <!-- 1. LAYER GAMBAR BACKGROUND LOKAL -->
     <div class="fixed inset-0 w-full h-full -z-10 bg-cover bg-center bg-no-repeat opacity-35 pointer-events-none filter blur-[0.5px]"
          style="background-image: url('{{ asset('images/bg-dashboard.jpg') }}');">
     </div>
 
-    <!-- 2. LAYER OVERLAY GRADASI LEMBUT (SOFT BLEND) -->
+    <!-- 2. LAYER OVERLAY GRADASI LEMBUT -->
     <div class="fixed inset-0 w-full h-full -z-10 bg-gradient-to-br from-[#FAF8FF]/70 via-[#FAF8FF]/80 to-[#F3EEFF]/85 pointer-events-none"></div>
 
     <!-- KONTEN UTAMA WEBSITE -->

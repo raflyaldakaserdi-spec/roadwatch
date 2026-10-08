@@ -29,7 +29,7 @@
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 Status: Terhubung (Mode Pengujian)
                 <i class="fa-solid fa-signal text-[10px] ml-0.5"></i>
-            </span>
+            </span>            <form method="POST" action="{{ route('logout') }}" class="inline-flex items-center shrink-0">@csrf<button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-red-500 hover:text-white bg-red-500/10 hover:bg-red-500 border border-red-500/20 rounded-2xl transition-all duration-200 shadow-sm cursor-pointer"><i class="fa-solid fa-right-from-bracket text-xs"></i><span>Log Out</span></button></form>
         </div>
     </div>
 
@@ -145,7 +145,7 @@
         </div>
 
         <!-- Live Detection (Span 3) -->
-        <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-purple-100/60 shadow-sm flex flex-col justify-between">
+        <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-purple-100/60 shadow-sm flex flex-col justify-start">
             <div>
                 <div class="flex items-center justify-between mb-3">
                     <h2 class="font-extrabold text-slate-900 text-sm flex items-center gap-2">
@@ -186,7 +186,7 @@
         </div>
 
         <!-- Status Perangkat & Sensor (Span 3) -->
-        <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-purple-100/60 shadow-sm flex flex-col justify-between">
+        <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-purple-100/60 shadow-sm flex flex-col justify-start">
             <h2 class="font-extrabold text-slate-900 text-sm mb-3 flex items-center gap-2">
                 <i class="fa-solid fa-sliders text-violet-600"></i>
                 Status Perangkat & Sensor
@@ -344,7 +344,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var dashMap = L.map('dashboardMap').setView([-6.37210000, 106.83120000], 11);
+            var dashMap = L.map('dashboardMap').setView([-6.38800000, 106.83120000], 13);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
@@ -361,3 +361,14 @@
         });
     </script>
 </x-app-layout>
+
+
+
+
+
+
+
+
+
+
+

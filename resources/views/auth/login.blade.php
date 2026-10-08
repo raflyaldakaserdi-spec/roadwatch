@@ -25,11 +25,7 @@
         </div>
 
         <div class="flex items-center justify-between mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-xs text-slate-600 hover:text-slate-900 rounded-md" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+            
 
             <div class="flex items-center gap-3">
                 <!-- Link Ke Halaman Register -->
