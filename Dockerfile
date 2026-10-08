@@ -20,5 +20,5 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php artisan storage:link && php artisan migrate --force && nginx -g \"daemon off;\" & php-fpm"]
+CMD ["sh", "-c", "php artisan storage:link && php artisan migrate --force && php artisan db:seed --force && nginx -g \"daemon off;\" & php-fpm"]
 
