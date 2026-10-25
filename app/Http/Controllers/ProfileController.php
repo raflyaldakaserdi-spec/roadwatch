@@ -16,8 +16,15 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        // RoadWatch Settings Role Request V1
+        $latestRoleRequest = \App\Models\RoleRequest::where(
+            'user_id',
+            $request->user()->id
+        )->latest('id')->first();
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'latestRoleRequest' => $latestRoleRequest,
         ]);
     }
 
@@ -47,6 +54,12 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        abort_if(
+            (bool) $user->is_super_admin,
+            403,
+            'Akun Super Admin tidak dapat dihapus.'
+        );
 
         Auth::logout();
 

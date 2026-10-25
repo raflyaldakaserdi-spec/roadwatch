@@ -25,3 +25,18 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# RoadWatch local backups and sensitive files
+.env.*
+!.env.example
+*.backup
+*.backup-*
+*.backup_*
+*.bak
+*.bak-*
+*.bak_*
+*.before-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*

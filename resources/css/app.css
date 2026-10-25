@@ -1,3 +1,386 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* RoadWatch - New Live Detection Animation */
+@keyframes rw-live-detection-arrival {
+    0% {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    }
+    35% {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(223, 120, 166, 0.22);
+    }
+    100% {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    }
+}
+
+.rw-live-new-detection {
+    animation: rw-live-detection-arrival 850ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rw-live-new-detection {
+        animation: none;
+    }
+}
+
+
+/* RoadWatch Dashboard - Panel Micro Interactions */
+
+@media (hover: hover) and (pointer: fine) {
+    #rwDetectionAnalytics,
+    #rwDetectionTrend {
+        transition:
+            box-shadow 250ms ease,
+            border-color 250ms ease;
+    }
+
+    #rwDetectionAnalytics:hover,
+    #rwDetectionTrend:hover {
+        border-color: rgba(223, 120, 166, 0.28);
+        box-shadow:
+            0 10px 30px rgba(95, 50, 75, 0.065),
+            0 2px 8px rgba(95, 50, 75, 0.025);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #rwDetectionAnalytics,
+    #rwDetectionTrend {
+        transition: none;
+    }
+}
+
+
+/* RoadWatch Dashboard - History Table Polish */
+
+#rwHistoryPanel {
+    transition: box-shadow 250ms ease, border-color 250ms ease;
+}
+
+#rwHistoryPanel .overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: #E9B3CD #FFF4F9;
+    -webkit-overflow-scrolling: touch;
+}
+
+#rwHistoryPanel .overflow-x-auto::-webkit-scrollbar {
+    height: 6px;
+}
+
+#rwHistoryPanel .overflow-x-auto::-webkit-scrollbar-thumb {
+    background: #E9B3CD;
+    border-radius: 999px;
+}
+
+#rwHistoryPanel table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#rwHistoryPanel thead th {
+    white-space: nowrap;
+    letter-spacing: 0.045em;
+}
+
+#rwHistoryPanel tbody tr {
+    transition: background-color 180ms ease;
+}
+
+#rwHistoryPanel tbody td {
+    vertical-align: middle;
+}
+
+#rwHistoryPanel tbody td:first-child,
+#rwHistoryPanel tbody td:nth-child(3) {
+    white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #rwHistoryPanel:hover {
+        border-color: rgba(223, 120, 166, 0.28);
+        box-shadow: 0 10px 30px rgba(95, 50, 75, 0.065);
+    }
+
+    #rwHistoryPanel tbody tr:hover {
+        background-color: #FFF2F8;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #rwHistoryPanel,
+    #rwHistoryPanel tbody tr {
+        transition: none;
+    }
+}
+
+
+/* RoadWatch Dashboard - Mobile Refinement V1 */
+
+@media (max-width: 767px) {
+
+    /* Statistik: ruang teks dan grafik lebih seimbang */
+    .rw-stats-grid > div {
+        overflow: hidden;
+    }
+
+    .rw-stats-grid > div > .flex.items-end {
+        min-width: 0;
+        gap: 6px;
+    }
+
+    .rw-stats-grid > div > .flex.items-end > div:first-child {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .rw-stats-grid .rw-stat-chart {
+        width: clamp(48px, 13vw, 90px) !important;
+        height: 54px !important;
+        flex: 0 1 auto;
+        min-width: 0;
+        margin-left: 0 !important;
+    }
+
+    /* Peta: legend turun ke baris baru jika diperlukan */
+    .rw-monitor-grid > div:first-child > .flex.items-center.justify-between {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .rw-monitor-grid > div:first-child > .flex.items-center.justify-between > div {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    /* Live Detection: koordinat GPS tidak keluar panel */
+    #roadwatchLiveDetection [data-live-gps] {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    #roadwatchLiveDetection .space-y-2 > .flex > span:last-child {
+        min-width: 0;
+        text-align: right;
+    }
+
+    /* Panel analytics tetap mengikuti lebar layar */
+    #rwDetectionAnalytics,
+    #rwDetectionTrend,
+    #rwHistoryPanel {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    /* Filter trend tetap nyaman disentuh */
+    #rwTrendPeriodFilter button {
+        min-height: 36px;
+    }
+}
+
+@media (max-width: 360px) {
+    .rw-stats-grid .rw-stat-chart {
+        width: 100px !important;
+        max-width: 40%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #rwTrendPeriodFilter button {
+        transition: none;
+    }
+}
+
+
+/* RoadWatch Dashboard - Mobile Stats Grid Fix V2 */
+
+@media (min-width: 361px) and (max-width: 767px) {
+    .rw-ambient-main .rw-stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .rw-ambient-main .rw-stats-grid > div {
+        min-width: 0 !important;
+        width: auto !important;
+        padding: 12px !important;
+    }
+
+    .rw-ambient-main .rw-stats-grid .rw-stat-chart {
+        width: 48px !important;
+        height: 45px !important;
+        flex-shrink: 0;
+    }
+
+    .rw-ambient-main .rw-stats-grid .text-3xl {
+        font-size: 22px !important;
+    }
+
+    .rw-ambient-main .rw-stats-grid h3 {
+        line-height: 1.2;
+    }
+}
+
+@media (max-width: 360px) {
+    .rw-ambient-main .rw-stats-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+}
+
+
+/* RoadWatch Dashboard - Mobile History Enhancement V1 */
+
+.rw-history-scroll-hint {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    #rwHistoryPanel {
+        padding: 16px;
+    }
+
+    #rwHistoryPanel .rw-history-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    #rwHistoryPanel .rw-history-header > div {
+        min-width: 0;
+    }
+
+    #rwHistoryPanel .rw-history-header > a {
+        align-self: flex-start;
+        white-space: nowrap;
+    }
+
+    #rwHistoryPanel .rw-history-scroll-hint {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin: 0;
+        color: #B65C87;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.5;
+    }
+
+    #rwHistoryPanel .overflow-x-auto {
+        max-width: 100%;
+        overscroll-behavior-x: contain;
+    }
+}
+
+
+/* RoadWatch Dashboard - Live Sync Indicator */
+
+.rw-live-sync {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 9px;
+    padding: 6px 10px;
+    border: 1px solid #F5DCE8;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.rw-live-sync-dot {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #94A3B8;
+}
+
+.rw-live-sync[data-sync-state="success"] .rw-live-sync-dot {
+    background: #10B981;
+}
+
+.rw-live-sync[data-sync-state="loading"] .rw-live-sync-dot {
+    background: #F59E0B;
+}
+
+.rw-live-sync[data-sync-state="error"] .rw-live-sync-dot {
+    background: #EF4444;
+}
+
+.rw-live-sync[data-sync-state="error"] {
+    color: #B91C1C;
+    border-color: #FECACA;
+    background: #FEF2F2;
+}
+
+.rw-live-sync [data-sync-time] {
+    color: #94A3B8;
+    font-weight: 500;
+}
+
+@media (max-width: 767px) {
+    .rw-live-sync {
+        max-width: 100%;
+        font-size: 10px;
+        padding: 5px 9px;
+    }
+}
+
+
+/* RoadWatch Panel Last Updated V1 */
+
+.rw-panel-updated {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 12px;
+    color: #94A3B8;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.rw-panel-updated i {
+    flex-shrink: 0;
+    color: #DF78A6;
+}
+
+@media (max-width: 767px) {
+    .rw-panel-updated {
+        font-size: 10px;
+        padding-top: 10px;
+    }
+}
+
+
+/* RoadWatch Panel Sync Error Styling V1 */
+
+/* Error hanya mengubah indikator, bukan seluruh panel */
+.rw-panel-updated[data-sync-error="true"] {
+    color: #B91C1C;
+}
+
+.rw-panel-updated[data-sync-error="true"] i {
+    color: #EF4444;
+}
+
+/* Status normal kembali ke tampilan sebelumnya */
+.rw-panel-updated[data-sync-error="false"] {
+    color: #94A3B8;
+}
+
+.rw-panel-updated[data-sync-error="false"] i {
+    color: #DF78A6;
+}

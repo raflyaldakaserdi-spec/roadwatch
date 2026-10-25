@@ -1,0 +1,433 @@
+
+/* ROADWATCH MOBILE — VERSION 3 */
+
+#rw-mobile-toggle,
+#rw-mobile-overlay {
+    display: none;
+}
+
+@media (max-width: 767px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .rw-app-shell {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    /* SIDEBAR */
+    #rw-mobile-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        width: min(270px, 82vw) !important;
+        height: 100dvh !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        z-index: 1002 !important;
+        transform: translate3d(-105%, 0, 0) !important;
+        transition: transform .28s ease !important;
+        box-shadow: 8px 0 30px rgba(40, 30, 45, .08);
+    }
+
+    body.rw-menu-open #rw-mobile-sidebar {
+        transform: translate3d(0, 0, 0) !important;
+    }
+
+    #rw-mobile-sidebar .rw-nav {
+        min-height: 42px;
+        font-size: 12px;
+    }
+
+    /* TOMBOL MENU */
+    #rw-mobile-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        position: fixed !important;
+        top: 12px;
+        left: 12px;
+        width: 42px;
+        height: 42px;
+        z-index: 1004 !important;
+        border-radius: 13px;
+        background: #FFFFFF;
+        border: 1px solid #F3DDE8;
+        color: #C76F9A;
+        box-shadow: 0 4px 14px rgba(80, 40, 65, .07);
+        font-size: 17px;
+    }
+
+    body.rw-menu-open #rw-mobile-toggle {
+        left: min(215px, calc(82vw - 55px));
+        top: 16px;
+        width: 34px;
+        height: 34px;
+        box-shadow: none;
+    }
+
+    /* OVERLAY */
+    body.rw-menu-open #rw-mobile-overlay {
+        display: block !important;
+        position: fixed;
+        inset: 0;
+        z-index: 1001;
+        background: rgba(23, 33, 60, .24);
+    }
+
+    body.rw-menu-open {
+        overflow: hidden;
+    }
+
+    /* KONTEN UTAMA */
+    .rw-ambient-main {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 100dvh;
+        padding: 75px 14px 28px !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box;
+    }
+
+    /* HEADER DASHBOARD */
+    .rw-dashboard-header {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 14px !important;
+        width: 100% !important;
+        margin-bottom: 18px !important;
+    }
+
+    .rw-dashboard-header > div {
+        width: 100%;
+        min-width: 0 !important;
+    }
+
+    .rw-dashboard-header h1 {
+        font-size: 21px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Sembunyikan toolbar desktop di HP */
+    .rw-dashboard-header > div:nth-child(2) {
+        display: none !important;
+    }
+
+    /* KARTU STATISTIK: 2 KOLOM */
+    .rw-stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+        width: 100% !important;
+    }
+
+    .rw-stats-grid > div {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 13px !important;
+        border-radius: 16px !important;
+    }
+
+    .rw-stats-grid .text-3xl {
+        font-size: 25px !important;
+    }
+
+    .rw-stats-grid .text-\\[10px\\] {
+        font-size: 9px !important;
+    }
+
+    /* MONITORING: 1 KOLOM */
+    .rw-monitor-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 14px !important;
+        width: 100% !important;
+    }
+
+    .rw-monitor-grid > div {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 14px !important;
+    }
+
+    .rw-monitor-grid img {
+        max-width: 100%;
+    }
+
+    .rw-monitor-grid .leaflet-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* KOMPONEN UMUM */
+    .rw-ambient-main .grid > * {
+        min-width: 0;
+    }
+
+    .rw-ambient-main .overflow-x-auto {
+        max-width: 100%;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .rw-ambient-main table {
+        min-width: 650px;
+    }
+}
+
+@media (max-width: 360px) {
+    .rw-stats-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #rw-mobile-sidebar {
+        transition: none !important;
+    }
+}
+
+/* ==========================================
+   ROADWATCH MOBILE PATCH V4
+   ========================================== */
+
+@media (max-width: 767px) {
+
+    /* 1. SIDEBAR HARUS DI ATAS OVERLAY */
+
+    #rw-mobile-sidebar {
+        z-index: 9998 !important;
+        isolation: isolate;
+        background: #FFFCFE !important;
+    }
+
+    #rw-mobile-overlay {
+        z-index: 9996 !important;
+    }
+
+    body.rw-menu-open #rw-mobile-overlay {
+        z-index: 9996 !important;
+        background: rgba(18, 25, 43, .32) !important;
+    }
+
+    #rw-mobile-toggle {
+        z-index: 9999 !important;
+    }
+
+    body.rw-menu-open #rw-mobile-sidebar {
+        pointer-events: auto !important;
+    }
+
+    #rw-mobile-sidebar nav,
+    #rw-mobile-sidebar .rw-nav {
+        position: relative;
+        z-index: 1;
+        pointer-events: auto !important;
+    }
+
+    /* 2. KARTU STATISTIK LEBIH KOMPAK */
+
+    .rw-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .rw-stats-grid > div {
+        min-width: 0 !important;
+        padding: 12px !important;
+        overflow: hidden !important;
+    }
+
+    .rw-stats-grid > div > div:first-child {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 5px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .rw-stats-grid > div > div:first-child > span {
+        max-width: 100%;
+        white-space: normal !important;
+    }
+
+    .rw-stats-grid .text-3xl {
+        font-size: 23px !important;
+        line-height: 1.2 !important;
+    }
+
+    .rw-stats-grid svg {
+        max-width: 45px !important;
+        height: auto !important;
+        flex-shrink: 1 !important;
+    }
+
+    /* 3. PETA DAN KONTEN MONITORING */
+
+    .rw-monitor-grid > div {
+        overflow: hidden;
+    }
+
+    .rw-monitor-grid h2 {
+        font-size: 12px !important;
+    }
+
+    .rw-monitor-grid .leaflet-container {
+        max-width: 100% !important;
+    }
+}
+
+/* HP dengan layar lebih sempit */
+@media (max-width: 390px) {
+
+    .rw-stats-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+}
+
+/* ==========================================
+   ROADWATCH MOBILE — SIDEBAR LAYER FIX
+   ========================================== */
+
+@media (max-width: 767px) {
+
+    /* Hilangkan stacking context yang mengurung sidebar */
+    .rw-app-shell {
+        position: static !important;
+        z-index: auto !important;
+        isolation: auto !important;
+    }
+
+    /* Sidebar berada di atas overlay */
+    #rw-mobile-sidebar {
+        position: fixed !important;
+        z-index: 10020 !important;
+        background: #FFFCFE !important;
+        pointer-events: auto !important;
+    }
+
+    /* Overlay hanya menutupi konten di belakang */
+    #rw-mobile-overlay,
+    body.rw-menu-open #rw-mobile-overlay {
+        z-index: 10010 !important;
+    }
+
+    /* Tombol buka/tutup berada paling atas */
+    #rw-mobile-toggle {
+        z-index: 10030 !important;
+    }
+
+    /* Pastikan seluruh link sidebar dapat diklik */
+    #rw-mobile-sidebar nav,
+    #rw-mobile-sidebar nav a {
+        position: relative;
+        pointer-events: auto !important;
+    }
+
+    /* Animasi sidebar yang lebih halus */
+    #rw-mobile-sidebar {
+        transition: transform 280ms cubic-bezier(.22, 1, .36, 1) !important;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #rw-mobile-sidebar {
+        transition: none !important;
+    }
+}
+
+/* ==========================================
+   ROADWATCH MOBILE LOGOUT
+   ========================================== */
+
+.rw-mobile-logout {
+    display: none;
+}
+
+@media (max-width: 767px) {
+
+    .rw-mobile-logout {
+        display: block;
+        padding: 12px 16px 20px;
+        margin-top: 12px;
+        border-top: 1px solid #F4E5EC;
+    }
+
+    .rw-mobile-logout form {
+        width: 100%;
+    }
+
+    .rw-mobile-logout-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        width: 100%;
+        min-height: 44px;
+        padding: 12px 16px;
+
+        background: #FFF0F5;
+        border: 1px solid #F7D5E3;
+        border-radius: 14px;
+
+        color: #C65E8E;
+        font-size: 13px;
+        font-weight: 700;
+
+        cursor: pointer;
+        transition: background .2s ease;
+    }
+
+    .rw-mobile-logout-btn:hover {
+        background: #FBE1EB;
+    }
+}
+
+/* ROADWATCH MOBILE SIDEBAR FOOTER FIX */
+@media (max-width: 767px) {
+
+    #rw-mobile-sidebar {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        height: 100dvh !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+    }
+
+    /* Logo dan menu navigasi */
+    #rw-mobile-sidebar > div:first-child {
+        flex-shrink: 0 !important;
+    }
+
+    /* Smarter Roads dan RoadWatch Platform */
+    #rw-mobile-sidebar > div:nth-child(2) {
+        margin-top: auto !important;
+        padding: 10px 14px 6px !important;
+        gap: 8px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Tombol Log Out */
+    #rw-mobile-sidebar > .rw-mobile-logout {
+        margin-top: 0 !important;
+        padding: 8px 14px 16px !important;
+        flex-shrink: 0 !important;
+    }
+
+}

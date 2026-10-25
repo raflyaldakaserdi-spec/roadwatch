@@ -11,6 +11,7 @@ class Detection extends Model
 
     protected $fillable = [
         'user_id',
+        'device_id',
         'detection_code',
         'image',
         'location',
@@ -27,5 +28,15 @@ class Detection extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function workAssignment()
+    {
+        return $this->hasOne(WorkAssignment::class);
+    }
+
+    public function device()
+    {
+        return $this->belongsTo(Device::class);
     }
 }

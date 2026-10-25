@@ -28,12 +28,28 @@ class RegisteredUserController extends Controller
             'role' => ['required', 'in:admin,pekerja,masyarakat'], // Validasi pilihan role
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
+        // RoadWatch Registration Role Request V1
+        // Semua akun publik dimulai sebagai masyarakat.
+        // Role khusus harus melalui persetujuan administrator.
+        $user = \Illuminate\Support\Facades\DB::transaction(function () use ($request) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'masyarakat',
+            ]);
+
+            if (in_array($request->role, ['admin', 'pekerja'], true)) {
+                \App\Models\RoleRequest::create([
+                    'user_id' => $user->id,
+                    'requested_role' => $request->role,
+                    'status' => 'pending',
+                    'reason' => 'Pengajuan akses melalui registrasi RoadWatch.',
+                ]);
+            }
+
+            return $user;
+        });
 
         event(new Registered($user));
 

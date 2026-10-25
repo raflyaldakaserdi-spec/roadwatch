@@ -1,0 +1,60 @@
+/* ROADWATCH SOFT PINK AMBIENT */
+
+.rw-ambient-main {
+    position: relative;
+    isolation: isolate;
+    background-color: #FFF8FB !important;
+}
+
+/* Ilustrasi jalan di belakang dashboard */
+.rw-ambient-main::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 440px;
+
+    background-image: url('/images/roadwatch-ambient.svg');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+
+    opacity: 0.75;
+    pointer-events: none;
+
+    animation: roadwatchAmbientFloat 22s ease-in-out infinite alternate;
+}
+
+/* Seluruh konten berada di atas ilustrasi */
+.rw-ambient-main > * {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes roadwatchAmbientFloat {
+    0% {
+        transform: translateY(0);
+        opacity: 0.55;
+    }
+
+    100% {
+        transform: translateY(12px);
+        opacity: 0.75;
+    }
+}
+
+@media (max-width: 768px) {
+    .rw-ambient-main::before {
+        height: 260px;
+        opacity: 0.35;
+        animation: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rw-ambient-main::before {
+        animation: none;
+    }
+}

@@ -32,7 +32,7 @@
 
                 <!-- Pekerja -->
                 <label class="relative flex flex-col items-center justify-center p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:bg-violet-50 hover:border-violet-300 transition group">
-                    <input type="radio" name="role" value="pekerja" class="sr-only peer" {{ old('role', 'pekerja') == 'pekerja' ? 'checked' : '' }}>
+                    <input type="radio" name="role" value="pekerja" class="sr-only peer" {{ old('role', 'masyarakat') == 'pekerja' ? 'checked' : '' }}>
                     <div class="p-2 bg-white rounded-lg text-slate-600 peer-checked:bg-violet-600 peer-checked:text-white transition">
                         <i class="fa-solid fa-helmet-safety text-sm"></i>
                     </div>
@@ -42,7 +42,7 @@
 
                 <!-- Masyarakat -->
                 <label class="relative flex flex-col items-center justify-center p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:bg-violet-50 hover:border-violet-300 transition group">
-                    <input type="radio" name="role" value="masyarakat" class="sr-only peer" {{ old('role') == 'masyarakat' ? 'checked' : '' }}>
+                    <input type="radio" name="role" value="masyarakat" class="sr-only peer" {{ old('role', 'masyarakat') == 'masyarakat' ? 'checked' : '' }}>
                     <div class="p-2 bg-white rounded-lg text-slate-600 peer-checked:bg-violet-600 peer-checked:text-white transition">
                         <i class="fa-solid fa-users text-sm"></i>
                     </div>
@@ -51,6 +51,17 @@
                 </label>
             </div>
             <x-input-error :messages="$errors->get('role')" class="mt-1" />
+            <!-- RoadWatch Role Approval Notice V1 -->
+            <div class="mt-3 flex items-start gap-2 rounded-xl border border-violet-100 bg-violet-50/70 px-3 py-3">
+                <i class="fa-solid fa-circle-info mt-0.5 text-xs text-violet-600"></i>
+                <p class="text-[11px] leading-relaxed text-slate-600">
+                    Semua akun baru akan aktif sebagai <strong>Masyarakat</strong>.
+                    Jika memilih <strong>Admin</strong> atau <strong>Pekerja</strong>,
+                    pengajuan akses akan dikirim untuk persetujuan.
+                    Hak akses khusus aktif setelah disetujui administrator.
+                </p>
+            </div>
+
         </div>
 
         <!-- Password -->
@@ -77,4 +88,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-app-layout>
+</x-guest-layout>

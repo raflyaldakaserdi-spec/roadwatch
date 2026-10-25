@@ -9,19 +9,37 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[Fillable(['name', 'email', 'password', 'role'])]
+#[Fillable(['name', 'email', 'password', 'role', 'google_id', 'email_verified_at'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
+    // RoadWatch RBAC Helpers V1
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'admin'
+            && (bool) $this->is_super_admin;
+    }
+
+    public function canManageRoleRequests(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canEditDetectionStatus(): bool
+    {
+        return $this->role === 'admin';
+    }
+
     protected function casts(): array
     {
         return [
